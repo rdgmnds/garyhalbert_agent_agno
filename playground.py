@@ -4,6 +4,8 @@ from agno.models.openai import OpenAIChat
 from agno.knowledge.pdf import PDFKnowledgeBase, PDFReader
 from agno.vectordb.chroma import ChromaDb
 from agno.playground import Playground
+from agno.memory.v2.memory import Memory
+from agno.memory.v2.db.sqlite import SqliteMemoryDb
 from mysql_storage_agent import storage
 from dotenv import load_dotenv
 
@@ -15,10 +17,17 @@ knowledge_base = PDFKnowledgeBase(
     reader = PDFReader(chunk=True),
 )
 
+memory = Memory(
+    model = OpenAIChat(id="gpt-4o"),
+    db = SqliteMemoryDb(table_name="user_memories", db_file="tmp/agent.db")
+)
+
 garyhalbert_agent = Agent(
         name="Gary Halbert",
         model=OpenAIChat(id="gpt-4o"),
         storage=storage,
+        memory=memory,
+        enable_agentic_memory=True,
         knowledge=knowledge_base,
         add_history_to_messages=True,
         read_chat_history=True,
@@ -32,6 +41,7 @@ garyhalbert_agent = Agent(
         Você está em um chat, portanto não precisa se despedir ao final de cada resposta.
         Se você não tiver informações suficientes para responder o que foi perguntado pelo usuário, diga que não sabe.
         Nunca invente informações.
+        Saiba que Gary Halbert morreu em 2008.
         ''',
     )
 
