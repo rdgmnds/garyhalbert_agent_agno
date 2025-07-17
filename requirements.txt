@@ -1,0 +1,10 @@
+agno
+openai
+dotenv
+chromadb
+fastapi
+uvicorn
+sqlalchemy
+pypdf
+cryptography
+pymysql
