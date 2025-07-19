@@ -1,11 +1,11 @@
 
-from agno.agent import Agent, RunResponseEvent
+import pymysql
+pymysql.install_as_MySQLdb()
+from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.knowledge.pdf import PDFKnowledgeBase, PDFReader
 from agno.vectordb.chroma import ChromaDb
-# from agno.playground import Playground
 from agno.memory.v2.memory import Memory
-from typing import Iterator
 from agno.memory.v2.db.sqlite import SqliteMemoryDb
 from mysql_storage_agent import storage
 from dotenv import load_dotenv

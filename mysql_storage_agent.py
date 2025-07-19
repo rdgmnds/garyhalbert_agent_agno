@@ -1,4 +1,7 @@
 
+
+import pymysql
+pymysql.install_as_MySQLdb()
 from agno.storage.mysql import MySQLStorage
 from dotenv import load_dotenv
 import os

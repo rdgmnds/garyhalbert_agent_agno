@@ -11,4 +11,3 @@ pymysql
 googlesearch-python
 pycountry
 streamlit
-mysqlclient
