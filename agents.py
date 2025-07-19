@@ -1,13 +1,11 @@
 
-import pymysql
-pymysql.install_as_MySQLdb()
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.knowledge.pdf import PDFKnowledgeBase, PDFReader
 from agno.vectordb.chroma import ChromaDb
+from agno.storage.sqlite import SqliteStorage
 from agno.memory.v2.memory import Memory
 from agno.memory.v2.db.sqlite import SqliteMemoryDb
-from mysql_storage_agent import storage
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -18,16 +16,11 @@ knowledge_base = PDFKnowledgeBase(
     reader = PDFReader(chunk=True),
 )
 
-memory = Memory(
-    model = OpenAIChat(id="gpt-4o"),
-    db = SqliteMemoryDb(table_name="user_memories", db_file="tmp/agent.db")
-)
-
 garyhalbert_agent = Agent(
         name="Gary Halbert",
         model=OpenAIChat(id="gpt-4o"),
-        storage=storage,
-        memory=memory,
+        storage=SqliteStorage(table_name="agent_sessions", db_file="tmp/agent.db"),
+        memory=Memory(model = OpenAIChat(id="gpt-4o"), db = SqliteMemoryDb(table_name="user_memories", db_file="tmp/agent.db")),
         enable_agentic_memory=True,
         knowledge=knowledge_base,
         add_history_to_messages=True,
@@ -45,12 +38,5 @@ garyhalbert_agent = Agent(
         Saiba que Gary Halbert morreu em 2008.
         ''',
     )
-
-# playground_app = Playground(agents=[garyhalbert_agent])
-# app = playground_app.get_app()
-
-# if __name__ == "__main__":
-#     #knowledge_base.load(recreate=True)
-#     playground_app.serve("agents:app")
 
 
