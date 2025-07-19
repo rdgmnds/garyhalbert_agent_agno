@@ -1,10 +1,11 @@
 
-from agno.agent import Agent
+from agno.agent import Agent, RunResponseEvent
 from agno.models.openai import OpenAIChat
 from agno.knowledge.pdf import PDFKnowledgeBase, PDFReader
 from agno.vectordb.chroma import ChromaDb
-from agno.playground import Playground
+# from agno.playground import Playground
 from agno.memory.v2.memory import Memory
+from typing import Iterator
 from agno.memory.v2.db.sqlite import SqliteMemoryDb
 from mysql_storage_agent import storage
 from dotenv import load_dotenv
@@ -12,7 +13,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 knowledge_base = PDFKnowledgeBase(
-    path="files",
+    path="files/pdfs",
     vector_db=ChromaDb(collection="gary_halbert", path="tmp/chromadb", persistent_client=True),
     reader = PDFReader(chunk=True),
 )
@@ -45,11 +46,11 @@ garyhalbert_agent = Agent(
         ''',
     )
 
-playground_app = Playground(agents=[garyhalbert_agent])
-app = playground_app.get_app()
+# playground_app = Playground(agents=[garyhalbert_agent])
+# app = playground_app.get_app()
 
-if __name__ == "__main__":
-    #knowledge_base.load(recreate=True)
-    playground_app.serve("playground:app")
+# if __name__ == "__main__":
+#     #knowledge_base.load(recreate=True)
+#     playground_app.serve("agents:app")
 
 
