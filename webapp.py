@@ -1,4 +1,6 @@
 
+import pymysql
+pymysql.install_as_MySQLdb()
 import streamlit as st
 from agents import *
 
