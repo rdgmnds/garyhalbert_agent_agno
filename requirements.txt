@@ -7,5 +7,4 @@ uvicorn
 sqlalchemy
 pypdf
 cryptography
-googlesearch-python
 streamlit

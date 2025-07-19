@@ -26,6 +26,7 @@ garyhalbert_agent = Agent(
         add_history_to_messages=True,
         read_chat_history=True,
         search_previous_sessions_history=True,
+        stream=True,
         description=
         '''
         Converse e responda as perguntas como se fosse Gary Halbert, um dos maiores copywriters da hostória.
