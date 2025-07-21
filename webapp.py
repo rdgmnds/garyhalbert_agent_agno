@@ -1,7 +1,10 @@
+
 import streamlit as st
 from agents import *
 
 def chat_page():
+    """Cria a pagina do chat"""
+
     st.set_page_config(
         page_title="IA do Gary Halbert",
         page_icon="✍️",
@@ -11,9 +14,11 @@ def chat_page():
     st.image("files/imgs/Gary-Halbert.jpg")
     st.divider()
 
+    # cria session para o histórico das mensagens
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = []
 
+    # apresenta o histórico de conversas
     for message in st.session_state.chat_history:
         with st.chat_message(message["role"], avatar=message.get("avatar")):
             if message["type"] == "text":
@@ -35,8 +40,9 @@ def chat_page():
             st.write(user_input)
 
         with st.chat_message("ai", avatar="files/imgs/Gary-Halbert.jpg"):
+            
+            # executa o agente e busca apenas o conteúdo da resposta
             response = []
-
             response_stream = garyhalbert_agent.run(user_input, stream=True)
             for event in response_stream:
                 if event.event == "RunResponseContent":
@@ -44,14 +50,14 @@ def chat_page():
 
             resposta_final = "".join(response)
             st.write_stream(response)
-
+            
+            # adiciona no histórico de conversas
             st.session_state.chat_history.append({
                 "role": "ai",
                 "avatar": "files/imgs/Gary-Halbert.jpg",
                 "type": "text",
                 "content": resposta_final
             })
-
 
 def main():
     chat_page()
