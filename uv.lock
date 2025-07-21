@@ -35,10 +35,12 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "agno" },
-    { name = "chromadb" },
     { name = "cryptography" },
     { name = "dotenv" },
     { name = "fastapi" },
+    { name = "googlesearch-python" },
+    { name = "lancedb" },
+    { name = "mysql" },
     { name = "openai" },
     { name = "pypdf" },
     { name = "sqlalchemy" },
@@ -49,10 +51,12 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "agno", specifier = ">=1.7.2" },
-    { name = "chromadb", specifier = ">=1.0.15" },
     { name = "cryptography", specifier = ">=45.0.5" },
     { name = "dotenv", specifier = ">=0.9.9" },
     { name = "fastapi", specifier = ">=0.116.1" },
+    { name = "googlesearch-python", specifier = ">=1.3.0" },
+    { name = "lancedb", specifier = ">=0.24.1" },
+    { name = "mysql", specifier = ">=0.0.3" },
     { name = "openai", specifier = ">=1.96.0" },
     { name = "pypdf", specifier = ">=5.8.0" },
     { name = "sqlalchemy", specifier = ">=2.0.41" },
@@ -290,48 +294,6 @@ wheels = [
 ]
 
 [[package]]
-name = "chromadb"
-version = "1.0.15"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "bcrypt" },
-    { name = "build" },
-    { name = "grpcio" },
-    { name = "httpx" },
-    { name = "importlib-resources" },
-    { name = "jsonschema" },
-    { name = "kubernetes" },
-    { name = "mmh3" },
-    { name = "numpy" },
-    { name = "onnxruntime" },
-    { name = "opentelemetry-api" },
-    { name = "opentelemetry-exporter-otlp-proto-grpc" },
-    { name = "opentelemetry-sdk" },
-    { name = "orjson" },
-    { name = "overrides" },
-    { name = "posthog" },
-    { name = "pybase64" },
-    { name = "pydantic" },
-    { name = "pypika" },
-    { name = "pyyaml" },
-    { name = "rich" },
-    { name = "tenacity" },
-    { name = "tokenizers" },
-    { name = "tqdm" },
-    { name = "typer" },
-    { name = "typing-extensions" },
-    { name = "uvicorn", extra = ["standard"] },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/ad/e2/0653b2e539db5512d2200c759f1bc7f9ef5609fe47f3c7d24b82f62dc00f/chromadb-1.0.15.tar.gz", hash = "sha256:3e910da3f5414e2204f89c7beca1650847f2bf3bd71f11a2e40aad1eb31050aa", size = 1218840, upload-time = "2025-07-02T17:07:09.875Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/85/5a/866c6f0c2160cbc8dca0cf77b2fb391dcf435b32a58743da1bc1a08dc442/chromadb-1.0.15-cp39-abi3-macosx_10_12_x86_64.whl", hash = "sha256:51791553014297798b53df4e043e9c30f4e8bd157647971a6bb02b04bfa65f82", size = 18838820, upload-time = "2025-07-02T17:07:07.632Z" },
-    { url = "https://files.pythonhosted.org/packages/e1/18/ff9b58ab5d334f5ecff7fdbacd6761bac467176708fa4d2500ae7c048af0/chromadb-1.0.15-cp39-abi3-macosx_11_0_arm64.whl", hash = "sha256:48015803c0631c3a817befc276436dc084bb628c37fd4214047212afb2056291", size = 18057131, upload-time = "2025-07-02T17:07:05.15Z" },
-    { url = "https://files.pythonhosted.org/packages/31/49/74e34cc5aeeb25aff2c0ede6790b3671e14c1b91574dd8f98d266a4c5aad/chromadb-1.0.15-cp39-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:3b73cd6fb32fcdd91c577cca16ea6112b691d72b441bb3f2140426d1e79e453a", size = 18595284, upload-time = "2025-07-02T17:06:59.102Z" },
-    { url = "https://files.pythonhosted.org/packages/cb/33/190df917a057067e37f8b48d082d769bed8b3c0c507edefc7b6c6bb577d0/chromadb-1.0.15-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:479f1b401af9e7c20f50642ffb3376abbfd78e2b5b170429f7c79eff52e367db", size = 19526626, upload-time = "2025-07-02T17:07:02.163Z" },
-    { url = "https://files.pythonhosted.org/packages/a1/30/6890da607358993f87a01e80bcce916b4d91515ce865f07dc06845cb472f/chromadb-1.0.15-cp39-abi3-win_amd64.whl", hash = "sha256:e0cb3b93fdc42b1786f151d413ef36299f30f783a30ce08bf0bfb12e552b4190", size = 19520490, upload-time = "2025-07-02T17:07:11.559Z" },
-]
-
-[[package]]
 name = "click"
 version = "8.2.1"
 source = { registry = "https://pypi.org/simple" }
@@ -397,6 +359,18 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/f2/2e/e2dbd629481b499b14516eed933f3276eb3239f7cee2dcfa4ee6b44d4711/cryptography-45.0.5-cp37-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:7259038202a47fdecee7e62e0fd0b0738b6daa335354396c6ddebdbe1206af2a", size = 4554189, upload-time = "2025-07-02T13:05:46.045Z" },
     { url = "https://files.pythonhosted.org/packages/f8/ea/a78a0c38f4c8736287b71c2ea3799d173d5ce778c7d6e3c163a95a05ad2a/cryptography-45.0.5-cp37-abi3-win32.whl", hash = "sha256:1e1da5accc0c750056c556a93c3e9cb828970206c68867712ca5805e46dc806f", size = 2911769, upload-time = "2025-07-02T13:05:48.329Z" },
     { url = "https://files.pythonhosted.org/packages/79/b3/28ac139109d9005ad3f6b6f8976ffede6706a6478e21c889ce36c840918e/cryptography-45.0.5-cp37-abi3-win_amd64.whl", hash = "sha256:90cb0a7bb35959f37e23303b7eed0a32280510030daba3f7fdfbb65defde6a97", size = 3390016, upload-time = "2025-07-02T13:05:50.811Z" },
+]
+
+[[package]]
+name = "deprecation"
+version = "2.1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "packaging" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/5a/d3/8ae2869247df154b64c1884d7346d412fed0c49df84db635aab2d1c40e62/deprecation-2.1.0.tar.gz", hash = "sha256:72b3bde64e5d778694b0cf68178aed03d15e15477116add3fb773e581f9518ff", size = 173788, upload-time = "2020-04-20T14:23:38.738Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/02/c3/253a89ee03fc9b9682f1541728eb66db7db22148cd94f89ab22528cd1e1b/deprecation-2.1.0-py2.py3-none-any.whl", hash = "sha256:a10811591210e1fb0e768a8c25517cabeabcba6f0bf96564f8ff45189f90b14a", size = 11178, upload-time = "2020-04-20T14:23:36.581Z" },
 ]
 
 [[package]]
@@ -847,6 +821,29 @@ wheels = [
 ]
 
 [[package]]
+name = "lancedb"
+version = "0.24.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "deprecation" },
+    { name = "numpy" },
+    { name = "overrides" },
+    { name = "packaging" },
+    { name = "pyarrow" },
+    { name = "pydantic" },
+    { name = "tqdm" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a2/4a/cbdb6b7a8ca621282c3d9dedae00b372c09b430c69fc0ac149b5b9092b6c/lancedb-0.24.1-cp39-abi3-macosx_10_15_x86_64.whl", hash = "sha256:ae5f028920222ad325521fb447558e274eb92dfd7c189f5875dc3bcc7de07ea6", size = 32792946, upload-time = "2025-07-10T22:21:44.578Z" },
+    { url = "https://files.pythonhosted.org/packages/71/90/7c5218b5d81382901680bb365bb55f92fefa28434c049ec6236be73b7ac1/lancedb-0.24.1-cp39-abi3-macosx_11_0_arm64.whl", hash = "sha256:baf1eba0e2a8762753dba466e92792a4a21ec504612125ec1d8edd6c15b17eba", size = 30290214, upload-time = "2025-07-10T22:25:47.422Z" },
+    { url = "https://files.pythonhosted.org/packages/e1/01/b184e8f1e94e27b9297778dfde65259a94994138d7d4330334bfdf5756e1/lancedb-0.24.1-cp39-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:dc20c56936d8198330a5dee2f1a17dc1f2145a7b48f81bc32193ca16f3907f3b", size = 31147217, upload-time = "2025-07-10T21:55:21.461Z" },
+    { url = "https://files.pythonhosted.org/packages/4e/02/7e67ea8e49757e42251df4e665699fe4d0962f336e3d113ebff84f22bee9/lancedb-0.24.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f2509810c743e094d2d900fdc7b0f2bc3cc52a970ecdfb5d404c22b8b8da14cc", size = 34315305, upload-time = "2025-07-10T21:59:31.539Z" },
+    { url = "https://files.pythonhosted.org/packages/46/b9/770c17793062dacaf52c5641af706cffca6ef803fbe80422d7948fc4a0cb/lancedb-0.24.1-cp39-abi3-manylinux_2_28_aarch64.whl", hash = "sha256:2fbbdf6a6e6189fc3d026677a303a1b7e0bdfe9b690cfee93c586f6b76eb10ba", size = 31157887, upload-time = "2025-07-10T21:55:33.138Z" },
+    { url = "https://files.pythonhosted.org/packages/9c/ef/f896a8cabf99bc87e8bdc49df0bd08db09a86e8f333312c15375da21921f/lancedb-0.24.1-cp39-abi3-manylinux_2_28_x86_64.whl", hash = "sha256:e8ef48eaa8c6c2093f40cbae4968c1fa9126934022b4d6462c5a019688731597", size = 34354984, upload-time = "2025-07-10T22:00:26.294Z" },
+    { url = "https://files.pythonhosted.org/packages/b9/a2/0ab0979ac987313e2dd9b52fddb98eae9cb048e0faebca7a5f9e0a352ea5/lancedb-0.24.1-cp39-abi3-win_amd64.whl", hash = "sha256:091d1757776fd7a0d7adbc5d507f4356e9f479c38a0446009724d8e52d66cbb3", size = 36228285, upload-time = "2025-07-10T22:16:45.817Z" },
+]
+
+[[package]]
 name = "markdown-it-py"
 version = "3.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -952,6 +949,28 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/e0/47/dd32fa426cc72114383ac549964eecb20ecfd886d1e5ccf5340b55b02f57/mpmath-1.3.0.tar.gz", hash = "sha256:7a28eb2a9774d00c7bc92411c19a89209d5da7c4c9a9e227be8330a23a25b91f", size = 508106, upload-time = "2023-03-07T16:47:11.061Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/43/e3/7d92a15f894aa0c9c4b49b8ee9ac9850d6e63b03c9c32c0367a13ae62209/mpmath-1.3.0-py3-none-any.whl", hash = "sha256:a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c", size = 536198, upload-time = "2023-03-07T16:47:09.197Z" },
+]
+
+[[package]]
+name = "mysql"
+version = "0.0.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "mysqlclient" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/8d/3c/943f6734849a6aed97d83af689ce7096927b52465df7bccfbcb45a7e7d14/mysql-0.0.3.tar.gz", hash = "sha256:fd7bae7d7301ce7cd3932e5ff7f77bbc8e34872108252866e08d16d6b8e8de8c", size = 2037, upload-time = "2021-05-25T19:52:16.818Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/9a/52/8d29c58f6ae448a72fbc612955bd31accb930ca479a7ba7197f4ae4edec2/mysql-0.0.3-py3-none-any.whl", hash = "sha256:8893cb143a5ac525c49ef358a23b8a0dc9721a95646f7bab6ca2f384c18a6a9a", size = 1237, upload-time = "2021-05-25T19:52:15.462Z" },
+]
+
+[[package]]
+name = "mysqlclient"
+version = "2.2.7"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/61/68/810093cb579daae426794bbd9d88aa830fae296e85172d18cb0f0e5dd4bc/mysqlclient-2.2.7.tar.gz", hash = "sha256:24ae22b59416d5fcce7e99c9d37548350b4565baac82f95e149cac6ce4163845", size = 91383, upload-time = "2025-01-10T12:06:00.763Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/bb/b5/2a8a4bcba3440550f358b839638fe8ec9146fa3c9194890b4998a530c926/mysqlclient-2.2.7-cp312-cp312-win_amd64.whl", hash = "sha256:4b4c0200890837fc64014cc938ef2273252ab544c1b12a6c1d674c23943f3f2e", size = 208032, upload-time = "2025-01-10T11:56:29.879Z" },
+    { url = "https://files.pythonhosted.org/packages/29/01/e80141f1cd0459e4c9a5dd309dee135bbae41d6c6c121252fdd853001a8a/mysqlclient-2.2.7-cp313-cp313-win_amd64.whl", hash = "sha256:201a6faa301011dd07bca6b651fe5aaa546d7c9a5426835a06c3172e1056a3c5", size = 208000, upload-time = "2025-01-10T11:56:32.293Z" },
 ]
 
 [[package]]
@@ -1432,15 +1451,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/8d/98/6d2adaec318cae6ee968a10df0a7e870f17ee385ef623bcb2ab63fa11b59/pybase64-1.4.1-cp313-cp313t-win32.whl", hash = "sha256:bc06186cfa9a43e871fdca47c1379bdf1cfe964bd94a47f0919a1ffab195b39e", size = 34543, upload-time = "2025-03-02T11:12:18.625Z" },
     { url = "https://files.pythonhosted.org/packages/8e/e7/1823de02d2c23324cf1142e9dce53b032085cee06c3f982806040f975ce7/pybase64-1.4.1-cp313-cp313t-win_amd64.whl", hash = "sha256:02c3647d270af1a3edd35e485bb7ccfe82180b8347c49e09973466165c03d7aa", size = 36909, upload-time = "2025-03-02T11:12:20.122Z" },
     { url = "https://files.pythonhosted.org/packages/43/6a/8ec0e4461bf89ef0499ef6c746b081f3520a1e710aeb58730bae693e0681/pybase64-1.4.1-cp313-cp313t-win_arm64.whl", hash = "sha256:4b3635e5873707906e72963c447a67969cfc6bac055432a57a91d7a4d5164fdf", size = 29961, upload-time = "2025-03-02T11:12:21.908Z" },
-]
-
-[[package]]
-name = "pycountry"
-version = "24.6.1"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/76/57/c389fa68c50590881a75b7883eeb3dc15e9e73a0fdc001cdd45c13290c92/pycountry-24.6.1.tar.gz", hash = "sha256:b61b3faccea67f87d10c1f2b0fc0be714409e8fcdcc1315613174f6466c10221", size = 6043910, upload-time = "2024-06-01T04:12:15.05Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/b1/ec/1fb891d8a2660716aadb2143235481d15ed1cbfe3ad669194690b0604492/pycountry-24.6.1-py3-none-any.whl", hash = "sha256:f1a4fb391cd7214f8eefd39556d740adcc233c778a27f8942c8dca351d6ce06f", size = 6335189, upload-time = "2024-06-01T04:11:49.711Z" },
 ]
 
 [[package]]
