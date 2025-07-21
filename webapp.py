@@ -59,6 +59,7 @@ def chat_page():
             })
 
 def main():
+    garyhalbert_agent.knowledge.load(recreate=False)
     chat_page()
     
 if __name__ == "__main__":
