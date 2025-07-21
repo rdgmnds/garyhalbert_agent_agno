@@ -47,7 +47,6 @@ def chat_page():
             for event in response_stream:
                 if event.event == "RunResponseContent":
                     response.append(event.content)
-
             resposta_final = "".join(response)
             st.write_stream(response)
             
