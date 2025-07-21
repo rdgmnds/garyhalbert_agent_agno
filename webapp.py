@@ -40,15 +40,15 @@ def chat_page():
             st.write(user_input)
 
         with st.chat_message("ai", avatar="files/imgs/Gary-Halbert.jpg"):
-            
+            with st.spinner("Gary está digitando..."):
             # executa o agente e busca apenas o conteúdo da resposta
-            response = []
-            response_stream = garyhalbert_agent.run(user_input, stream=True)
-            for event in response_stream:
-                if event.event == "RunResponseContent":
-                    response.append(event.content)
-            resposta_final = "".join(response)
-            st.write_stream(response)
+                response = []
+                response_stream = garyhalbert_agent.run(user_input, stream=True)
+                for event in response_stream:
+                    if event.event == "RunResponseContent":
+                        response.append(event.content)
+                resposta_final = "".join(response)
+                st.write_stream(response)
             
             # adiciona no histórico de conversas
             st.session_state.chat_history.append({
@@ -59,7 +59,7 @@ def chat_page():
             })
 
 def main():
-    garyhalbert_agent.knowledge.load(recreate=False)
+    #garyhalbert_agent.knowledge.load(recreate=False)
     chat_page()
     
 if __name__ == "__main__":

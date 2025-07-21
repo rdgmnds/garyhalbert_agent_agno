@@ -3,7 +3,6 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.knowledge.pdf import PDFKnowledgeBase, PDFReader
 from agno.vectordb.lancedb import LanceDb
-from agno.vectordb.search import SearchType
 from agno.storage.sqlite import SqliteStorage
 from agno.memory.v2.memory import Memory
 from agno.memory.v2.db.sqlite import SqliteMemoryDb
@@ -13,8 +12,8 @@ load_dotenv()
 
 knowledge_base = PDFKnowledgeBase(
     path="files/pdfs",
-    vector_db=LanceDb(table_name="garyhalbert", uri="/tmp/lancedb", search_type=SearchType.keyword),
-    reader = PDFReader(chunk=True),
+    vector_db=LanceDb(table_name="garyhalbert", uri="tmp/lancedb"),
+    reader = PDFReader(chunk=True)
 )
 
 garyhalbert_agent = Agent(
