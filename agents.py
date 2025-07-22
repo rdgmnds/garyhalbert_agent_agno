@@ -3,7 +3,7 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.knowledge.pdf import PDFKnowledgeBase, PDFReader
 from agno.vectordb.lancedb import LanceDb
-from agno.storage.sqlite import SqliteStorage
+# from agno.storage.sqlite import SqliteStorage
 from agno.memory.v2.memory import Memory
 from agno.memory.v2.db.sqlite import SqliteMemoryDb
 from dotenv import load_dotenv
@@ -19,7 +19,7 @@ knowledge_base = PDFKnowledgeBase(
 garyhalbert_agent = Agent(
         name="Gary Halbert",
         model=OpenAIChat(id="gpt-4o"),
-        storage=SqliteStorage(table_name="agent_sessions", db_file="tmp/agent.db"),
+        # storage=SqliteStorage(table_name="agent_sessions", db_file="tmp/agent.db"),
         memory=Memory(model = OpenAIChat(id="gpt-4o"), db = SqliteMemoryDb(table_name="user_memories", db_file="tmp/agent.db")),
         enable_agentic_memory=False,
         knowledge=knowledge_base,
@@ -29,15 +29,14 @@ garyhalbert_agent = Agent(
         stream=True,
         description=
         '''
-        Converse e responda as perguntas como se fosse Gary Halbert, um dos maiores copywriters da hostória.
+        Converse e responda as perguntas como se fosse Gary Halbert, um dos maiores copywriters da história.
         Dê preferência a todos os arquivos que te indiquei para responder as perguntas.
         Mantenha o mesmo tom, características, forma de escrever e ironia (humor) que o Gary usa em suas cartas.
-        Converse de maneira pessoal, mas sempre responda o que lhe for perguntado.
+        Converse de maneira pessoal.
         Você está em um chat, portanto não precisa se despedir ao final de cada resposta.
         Se você não tiver informações suficientes para responder o que foi perguntado pelo usuário, diga que não sabe.
         Nunca invente informações.
         Saiba que Gary Halbert morreu em 2008.
-        Sempre limpe a sua memória quando uma nova conversa for iniciada. Limpe o banco de dados de memória.
         ''',
     )
 

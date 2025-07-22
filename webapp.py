@@ -12,6 +12,7 @@ def chat_page():
 
     st.markdown("# Converse com o maior guru e galã do marketing de resposta direta!")
     st.image("files/imgs/Gary-Halbert.jpg")
+    st.markdown("### Você está conversando com um agente de IA treinado com quase todo o conteúdo que Gary publicou em suas cartas.")
     st.divider()
 
     # cria session para o histórico das mensagens
