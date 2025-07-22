@@ -20,8 +20,8 @@ garyhalbert_agent = Agent(
         name="Gary Halbert",
         model=OpenAIChat(id="gpt-4o"),
         storage=SqliteStorage(table_name="agent_sessions", db_file="tmp/agent.db"),
-        memory=Memory(model = OpenAIChat(id="gpt-4o"), db = SqliteMemoryDb(table_name="user_memories", db_file="tmp/agent.db"), clear_memories=True),
-        enable_agentic_memory=True,
+        memory=Memory(model = OpenAIChat(id="gpt-4o"), db = SqliteMemoryDb(table_name="user_memories", db_file="tmp/agent.db")),
+        enable_agentic_memory=False,
         knowledge=knowledge_base,
         add_history_to_messages=True,
         read_chat_history=True,
@@ -37,6 +37,7 @@ garyhalbert_agent = Agent(
         Se você não tiver informações suficientes para responder o que foi perguntado pelo usuário, diga que não sabe.
         Nunca invente informações.
         Saiba que Gary Halbert morreu em 2008.
+        Sempre limpe a sua memória quando uma nova conversa for iniciada. Limpe o banco de dados de memória.
         ''',
     )
 
