@@ -59,6 +59,7 @@ def chat_page():
             })
 
 def main():
+    # executar esse load apenas na primeira vez (para criar o db de conhecimento)
     #garyhalbert_agent.knowledge.load(recreate=False)
     chat_page()
     
