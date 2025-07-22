@@ -20,7 +20,7 @@ garyhalbert_agent = Agent(
         name="Gary Halbert",
         model=OpenAIChat(id="gpt-4o"),
         storage=SqliteStorage(table_name="agent_sessions", db_file="tmp/agent.db"),
-        memory=Memory(model = OpenAIChat(id="gpt-4o"), db = SqliteMemoryDb(table_name="user_memories", db_file="tmp/agent.db")),
+        memory=Memory(model = OpenAIChat(id="gpt-4o"), db = SqliteMemoryDb(table_name="user_memories", db_file="tmp/agent.db"), clear_memories=True),
         enable_agentic_memory=True,
         knowledge=knowledge_base,
         add_history_to_messages=True,
